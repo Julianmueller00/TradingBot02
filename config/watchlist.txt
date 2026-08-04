@@ -1,0 +1,36 @@
+# Bot02 Watchlist
+# Eine Zeile pro Wert.  Format:  SYMBOL | Anzeigename | optionale,News,Suchbegriffe
+# - SYMBOL: Yahoo-Finance-Ticker (europaeische Werte mit Boersensuffix, z.B. .DE .AS .PA .SW .L)
+# - Anzeigename: frei, wird in der Ausgabe gezeigt und fuer die News-Suche genutzt
+# - Suchbegriffe (optional): zusaetzliche Begriffe fuer die News-Suche, mit Komma getrennt
+#
+# NEUE WERTE EINFACH UNTEN ANHAENGEN - kein Code-Eingriff noetig.
+# Zeilen mit # werden ignoriert.
+
+# --- USA ---
+AAPL   | Apple
+MSFT   | Microsoft
+NVDA   | Nvidia
+AMZN   | Amazon
+GOOGL  | Alphabet | Google
+META   | Meta Platforms | Facebook
+TSLA   | Tesla
+
+# --- Europa ---
+SAP.DE   | SAP
+SIE.DE   | Siemens
+ALV.DE   | Allianz
+ASML.AS  | ASML
+MC.PA    | LVMH
+NESN.SW  | Nestle
+NOVN.SW  | Novartis
+SHEL.L   | Shell
+AZN.L    | AstraZeneca
+
+# --- Ergaenzungen ---
+RHM.DE   | Rheinmetall
+R3NK.DE  | Renk
+VOW3.DE  | Volkswagen | VW
+ASTS     | AST SpaceMobile | AST Space
+RKLB     | Rocket Lab
+BZ=F     | Brent Rohoel | Brent, crude oil, Oelpreis
