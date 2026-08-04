@@ -1,0 +1,17 @@
+# virtuelle Umgebung – gehört NICHT ins Repo (GitHub installiert selbst neu)
+.venv/
+venv/
+
+# Python-Zwischendateien
+__pycache__/
+*.pyc
+
+# lokale Laufprotokolle (die Empfehlungen/Outcomes bleiben drin!)
+logs/run.log
+
+# generierte Dashboard-Seite (wird bei jedem Lauf neu gebaut)
+site/
+
+# Betriebssystem-Kram
+.DS_Store
+Thumbs.db
