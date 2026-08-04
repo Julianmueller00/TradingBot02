@@ -1,0 +1,62 @@
+name: Bot02 – Lauf & Dashboard
+
+# Läuft alle 5 Stunden automatisch in GitHubs Cloud (kostenlos, kein PC nötig)
+# und kann jederzeit von Hand gestartet werden (Reiter "Actions" -> "Run workflow").
+on:
+  schedule:
+    - cron: "0 */5 * * *"   # alle 5 Stunden (Zeiten in UTC)
+  workflow_dispatch: {}      # manueller Start-Knopf
+
+permissions:
+  contents: write   # aktualisierte Logs zurückschreiben
+  pages: write      # Dashboard auf GitHub Pages veröffentlichen
+  id-token: write   # für den Pages-Deploy nötig
+
+concurrency:
+  group: bot02
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeiten installieren
+        run: pip install -r requirements.txt
+
+      - name: Bot ausführen
+        run: python src/run.py
+        continue-on-error: true
+
+      - name: Aktualisierte Logs zurückschreiben
+        run: |
+          git config user.name "bot02-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add logs/recommendations.jsonl logs/outcomes.jsonl || true
+          git commit -m "Lauf $(date -u +%Y-%m-%dT%H:%MZ)" || echo "nichts zu committen"
+          git push || echo "push übersprungen"
+
+      - name: Dashboard bauen
+        run: python src/build_site.py
+
+      - name: Pages vorbereiten
+        uses: actions/configure-pages@v5
+
+      - name: Dashboard hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Veröffentlichen
+        id: deploy
+        uses: actions/deploy-pages@v4
